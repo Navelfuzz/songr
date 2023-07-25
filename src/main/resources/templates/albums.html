@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Albums</h1>
+<ul>
+  <!-- Loop through the albumList using Thymeleaf -->
+  <li th:each="album : ${albumList}">
+    <h2 th:text="${album.title}"></h2>
+    <p th:text="${album.artist}"></p>
+    <p th:text="'Song Count: ' + ${album.songCount}"></p>
+    <p th:text="'Length: ' + ${album.length} + ' seconds'"></p>
+    <img th:src="${album.imageUrl}" alt="Album Art">
+    <hr>
+  </li>
+</ul>
+</body>
+</html>
