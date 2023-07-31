@@ -1,5 +1,8 @@
 package com.java401d18.songr.model;
 
+
+
+
 public class Album {
     private String title;
     private String artist;
