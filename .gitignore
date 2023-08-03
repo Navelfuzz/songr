@@ -1,6 +1,8 @@
 
 # Created by https://www.gitignore.io/api/java,macos,android,androidstudio
 
+.env.properties
+application.settings
 ### Android ###
 # Built application files
 *.apk
@@ -209,5 +211,3 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/java,macos,android,androidstudio
 **markdown-navigator.xml
-
-/src/main/resources/application.properties
