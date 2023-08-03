@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!-- Add a link to the stylesheet in the head of the albums.html template. -->
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/style.css">-->
+    <title>Add Album Page</title>
+</head>
+
+<body>
+<!-- Add a form to the albums.html template that allows users to add new albums to the database. -->
+<form action="/add-album" method="POST">
+    <label for="title">Album Title</label>
+    <input type="text" name="title" id="title">
+    <label for="artist">Artist</label>
+    <input type="text" name="artist" id="artist">
+    <label for="songCount">Song Count</label>
+    <input type="number" name="songCount" id="songCount">
+    <label for="length">Length</label>
+    <input type="number" name="length" id="length">
+    <label for="imageUrl">Image URL</label>
+    <input type="text" name="imageUrl" id="imageUrl">
+    <input type="submit" value="Add Album">
+</form>
+
+
+</body>
