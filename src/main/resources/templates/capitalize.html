@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Capitalizer</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <title>Capitalize Page</title>
 </head>
 <body>
-<div>
-  <a>Welcome to Capitalizer Page</a>
-</div>
-<div>
-    <h1 th:text="${capitalizedWords}"></h1>
-</div>
+<h1 th:text="${capitalizedWords}">Capitalize Page</h1>
+<ul>
+    <li><a th:href="@{/}">Back to Home</a></li>
+</ul>
 </body>
 </html>
+
+
+
+
