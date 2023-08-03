@@ -1,32 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Albums Page</title>
+    <title>Album Playlist</title>
+    <!--    <link rel="stylesheet" href="/style.css" />-->
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-<header>
-<h1>Albums</h1>
-  <a href="/add-album">Add Album</a>
-
-</header>
-<!--albums come from the AlbumController. GET method -->
-
-  <!-- Loop through the albumList using Thymeleaf -->
+<h1>Album Playlist</h1>
 <ul>
-  <li th:each="album : ${albumList}">
+    <li><a th:href="@{/}">Back to Home</a></li>
+</ul>
+<div th:each="album : ${albums}" class="album">
     <h2 th:text="${album.title}"></h2>
     <p th:text="${album.artist}"></p>
-    <p th:text="'Song Count: ' + ${album.songCount}"></p>
-    <p th:text="'Length: ' + ${album.length} + ' seconds'"></p>
-    <img th:src="${album.imageUrl}" alt="Album Art">
-  </li>
-<!--    <form th:action="'/albums/delete/' + ${album.id}" method="delete">-->
-<!--      <input type="submit" value="Delete Album">-->
-<!--    </form>-->
-</ul>
-
- <!--Note: the Album's id is concatenated to the end of the path to be unique to each, it is accessed in the controller via path variable-->
-
+        <img th:src="${album.imageUrl}" alt="${album.title}" />
+</div>
 </body>
 </html>

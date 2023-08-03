@@ -1,32 +1,31 @@
 package com.java401d18.songr.model;
+import jakarta.persistence.*;
+
+import java.util.*;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-@Entity //Step 1
+//step 1: add @entity to class
+@Entity
 public class Album {
-    @Id //Step 2
-        @GeneratedValue(strategy = GenerationType.IDENTITY) //Step 2
-    long id;
+    //step 2: add @ID indentifier property to class
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private String artist;
     private int songCount;
     private int length;
     private String imageUrl;
 
+    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<Song> songs;
 
-    public Album(String title, String artist, Integer songCount, Integer length, String imageUrl) {
-        this.title = title;
-        this.artist = artist;
-        this.songCount = songCount;
-        this.length = length;
-        this.imageUrl = imageUrl;
-    }
+    //step 3: add protected default constructor
+//    public Album(String am, String arcticMonkeys, int i, int i1, String image) {
+//    }
 
-    public Album(long id, String title, String artist, Integer songCount, Integer length, String imageUrl){
+
+    public Album(long id, String title, String artist, int songCount, int length, String imageUrl) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -35,8 +34,16 @@ public class Album {
         this.imageUrl = imageUrl;
     }
 
-    //Step 3: Add protected default constructor
-    protected Album(){
+    public Album() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -55,19 +62,19 @@ public class Album {
         this.artist = artist;
     }
 
-    public Integer getSongCount() {
+    public int getSongCount() {
         return songCount;
     }
 
-    public void setSongCount(Integer songCount) {
+    public void setSongCount(int songCount) {
         this.songCount = songCount;
     }
 
-    public Integer getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
@@ -78,4 +85,7 @@ public class Album {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+
+
 }

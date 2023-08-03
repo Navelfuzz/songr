@@ -1,58 +1,83 @@
 package com.java401d18.songr.controllers;
 
 import com.java401d18.songr.model.Album;
+import com.java401d18.songr.model.Song;
 import com.java401d18.songr.repositories.AlbumRepository;
+import com.java401d18.songr.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
+
 import java.util.List;
 
 @Controller
 public class AlbumController {
-    //Step6: add an Autowired instance of repository to the controller
+
+    private final AlbumRepository albumRepository;
+    private final SongRepository songRepository;
+
+
     @Autowired
-    AlbumRepository albumRepository;
+    public AlbumController(AlbumRepository albumRepository, SongRepository songRepository) {
+        this.albumRepository = albumRepository;
+        this.songRepository = songRepository;
+    }
+
 
     @GetMapping("/albums")
     public String albums(Model model) {
-        List<Album> albumList = albumRepository.findAll();
-        model.addAttribute("albumList", albumList);
+        List<Album> albums = albumRepository.findAll();
+        model.addAttribute("albums", albums);
+        return "albums.html";
+    }
+
+    @GetMapping("/addAlbum")
+    public String addAlbumForm(Model model) {
+        model.addAttribute("album", new Album());
+        return "addAlbum.html";
+    }
+
+
+
+    @PostMapping("/addAlbum")
+    public String addAlbumSubmit(@ModelAttribute Album album) {
+        albumRepository.save(album);
+        return "redirect:/albums";
+    }
+
+
+    //lab 13
+    @GetMapping("/songs")
+    public String songs(Model model) {
+        List<Song> songs = songRepository.findAll();
+        model.addAttribute("songs", songs);
+        return "songs.html";
+    }
+
+    @GetMapping("/{id}")
+    public String getAlbum(Model model, @PathVariable Long id) {
+        Album album = albumRepository.getById(id);
+        model.addAttribute("album", album);
         return "albums";
     }
 
-
-    @GetMapping("/add-album")
-    public String getAlbumsPage() {
-        return "add-album.html";
-    }
-
-    @PostMapping("/add-album")
-    public RedirectView addAlbumFromForm(String title, String artist, int songCount, int length, String imageUrl) {
-        Album newAlbum = new Album(title, artist, songCount, length, imageUrl);
-        albumRepository.save(newAlbum);
-        return new RedirectView("/albums");
+    @PostMapping("/addAlbum/{id}")
+    public RedirectView addSongToAlbum(
+            @PathVariable Long id,
+            String title,
+            int songLength,
+            int trackNumber
+    ) {
+        Album album = albumRepository.findById(id).orElse(null);
+        if (album != null) {
+            Song song = new Song(title, songLength, trackNumber, album);
+            songRepository.save(song);
+        }
+        return new RedirectView("/albums/" + id);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-//        List<Album> albumList = new ArrayList<>();
-//        albumList.add(new Album("Led Zeppelin III", "Led Zeppelin", 10, (43 * 60) + 3, "https://static.qobuz.com/images/covers/17/46/0603497904617_600.jpg"));
-//        albumList.add(new Album("Disraeli Gears", "Cream", 11, (33 * 60) + 2, "https://www.americanhitnetwork.com/sites/default/files/styles/show_image_700x400/public/show_images/reaction-594003-cream-front.jpg"));
-//        albumList.add(new Album("And the War Came", "Shakey Graves", 11, (42 * 60) + 17, "https://www.besteveralbums.com/albumart/album_large_68554_54341699b488c.jpg"));
-//
-//        model.addAttribute("albumList", albumList);
-//
-//        return "albums";
-

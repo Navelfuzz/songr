@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}" />
     <title>Hello</title>
 </head>
 <body>
-<div>
-  <a>Welcome to the printer page</a>
-</div>
+<h1>Make your own playlist with us!</h1>
+<ul>
+    <li><a th:href="@{/}">Back to Home</a></li>
+</ul>
+<p>Navigate to the "Make a Playlist" hyperlink, fill out the form to add an album to your playlist, then navigate back to "Saved Albums" to check out your saved albums.</p>
+
 </body>
 </html>
+
+
