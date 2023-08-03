@@ -2,6 +2,8 @@ package com.java401d18.songr.controllers;
 
 import com.java401d18.songr.model.Album;
 
+import com.java401d18.songr.repositories.AlbumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -11,6 +13,10 @@ import java.util.List;
 
 @Controller
 public class AlbumController {
+    //Step6: add an Autowired instance of repository to the controller
+    @Autowired
+    AlbumRepository albumRepository;
+
     @GetMapping("/albums")
     public String albums(Model model){
         List<Album> albumList = new ArrayList<>();

@@ -1,14 +1,22 @@
 package com.java401d18.songr.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-
+@Entity //Step 1
 public class Album {
+    @Id //Step 2
+        @GeneratedValue(strategy = GenerationType.IDENTITY) //Step 2
+    long id;
     private String title;
     private String artist;
     private int songCount;
     private int length;
     private String imageUrl;
+
 
     public Album(String title, String artist, Integer songCount, Integer length, String imageUrl) {
         this.title = title;
@@ -18,7 +26,17 @@ public class Album {
         this.imageUrl = imageUrl;
     }
 
-    public Album() {
+    public Album(long id, String title, String artist, Integer songCount, Integer length, String imageUrl){
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.songCount = songCount;
+        this.length = length;
+        this.imageUrl = imageUrl;
+    }
+
+    //Step 3: Add protected default constructor
+    protected Album(){
     }
 
     public String getTitle() {
